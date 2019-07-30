@@ -1,0 +1,45 @@
+image: android-docker:latest
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - chmod +x ./gradlew
+
+stages:
+  - build
+  - test
+  - quality_assurance
+  
+build:
+  stage: build
+  tags:
+    - shared-fi
+  script:
+    - ./gradlew assembleDebug
+  artifacts:
+    paths:
+    - app/build/outputs/
+
+unitTests:
+  stage: test
+  tags:
+    - shared-fi
+  script:
+    - ./gradlew test
+
+static_analysis:
+  stage: quality_assurance
+  tags:
+    - shared-fi
+  script:
+    - ./gradlew check
+  artifacts:
+    name: "reports_${CI_PROJECT_NAME}_${CI_BUILD_REF_NAME}"
+    when: on_failure
+    expire_in: 4 days
+    paths:
+      - app/build/reports/

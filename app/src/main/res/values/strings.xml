@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">App Remembers</string>
+    <string name="create_new_todo">Create new todo</string>
+    <string name="edit_todo">Edit todo</string>
+    <string name="no_todo_items">You have no TODO items</string>
+    <string name="undo">undo</string>
+    <string name="create">Create</string>
+    <string name="edit">Edit</string>
+    <string name="cancel">Cancel</string>
+</resources>
